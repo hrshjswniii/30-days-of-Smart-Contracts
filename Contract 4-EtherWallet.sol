@@ -12,6 +12,16 @@ contract EtherWallet {
         balances[msg.sender] += msg.value;
     }
 
+     // Withdraw ETH from contract
+    function withdraw(uint256 _amount) external {
+        require(_amount > 0, "Invalid amount");
+        require(balances[msg.sender] >= _amount, "Insufficient balance");
+
+        balances[msg.sender] -= _amount;
+
+        payable(msg.sender).transfer(_amount);
+    }
+
     // View your balance stored in contract
     function myBalance() external view returns (uint256) {
         return balances[msg.sender];
