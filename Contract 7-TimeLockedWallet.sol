@@ -7,7 +7,7 @@ contract TimeLockedWallet {
     uint public unlockTime;
 
     // Contract must be deployed with ETH
-    constructo(uint _unlockTime) payable {
+    constructor(uint _unlockTime) payable {
       require(_unlockTime > block.timestamp, "Unlock time must be in future");
 
         owner = msg.sender;
