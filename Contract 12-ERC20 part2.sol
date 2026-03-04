@@ -7,4 +7,5 @@ contract HarshToken is ERC20 {
     constructor(uint256 initialSupply) ERC20("HarshToken", "HST") {
         _mint(msg.sender, initialSupply * 10 ** decimals());
     }
+
 }
