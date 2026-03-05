@@ -13,9 +13,9 @@ contract CrowdFunding {
     bool public goalReached;
     bool public withdrawn;
 
-    construct256 _goal, uint256 _durationInSeconds){
+    constructor(uint256 _goal, uint256 _durationInSeconds){
       creator = msg.sender;
-      goal = _oal;
+      goal = _goal;
       deadline = block.timestamp + _durationInSeconds;
       }
 
