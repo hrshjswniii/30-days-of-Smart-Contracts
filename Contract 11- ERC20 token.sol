@@ -15,7 +15,7 @@ contract MyERC20 {
     event Transfer(address indexed from, address indexed to, uint256 value);
     event Approval(address indexed owner, address indexed spender, uint256 value);
 
-    construct(uint256 _initialSupply){
+    constructor(uint256 _initialSupply){
     totalSupply = _initialSupply * (10 ** decimals);
     balanceOf[msg.sender] = totalSupply;
 
