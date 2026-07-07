@@ -39,7 +39,7 @@ contract Lottery {
         payable(winner).transfer(address(this).balance);
 
         // reset lottery
-        players = new address;
+        delete players;
     }
 
     // View players
