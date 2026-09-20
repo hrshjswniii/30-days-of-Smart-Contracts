@@ -8,7 +8,7 @@
 ![EVM](https://img.shields.io/badge/EVM-Compatible-627EEA?style=for-the-badge&logo=ethereum&logoColor=white)
 ![OpenZeppelin](https://img.shields.io/badge/OpenZeppelin-Contracts-4E5EE4?style=for-the-badge&logo=openzeppelin&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)
-![Status](https://img.shields.io/badge/Progress-15%20%2F%2030%20Days-brightgreen?style=for-the-badge)
+![Status](https://img.shields.io/badge/Progress-16%20%2F%2030%20Days-brightgreen?style=for-the-badge)
 
 <p align="center">
   A hands-on, progressive challenge building production-ready smart contracts from core Solidity fundamentals to advanced DeFi mechanics, tokenomics, access control, and state architecture.
@@ -21,7 +21,7 @@
 ## 📑 Table of Contents
 - [📖 About The Challenge](#-about-the-challenge)
 - [⚡ Tech Stack & Tools](#-tech-stack--tools)
-- [📊 Smart Contract Index (Days 1–15)](#-smart-contract-index-days-115)
+- [📊 Smart Contract Index](#-smart-contract-index)
 - [🧠 Core Concepts Covered](#-core-concepts-covered)
 - [📂 Repository Structure](#-repository-structure)
 - [🚀 Quick Start & Deployment Guide](#-quick-start--deployment-guide)
@@ -52,9 +52,9 @@ Every contract is built with precision—starting from fundamental state storage
 
 ---
 
-## 📊 Smart Contract Index (Days 1–15)
+## 📊 Smart Contract Index
 
-The table below catalogs the initial **15 Smart Contracts** included in this repository:
+The table below catalogs the smart contracts included in this repository:
 
 | Day | Contract Name | Source File | Core Topics & Key Features | Complexity |
 | :-: | :--- | :--- | :--- | :-: |
@@ -73,13 +73,14 @@ The table below catalogs the initial **15 Smart Contracts** included in this rep
 | **13** | **Token Faucet** | [`Contract 13-TokenFaucet.sol`](./Contract%2013-TokenFaucet.sol) | `IERC20` Interface Interactions, Rate-Limiting Cooldowns (`1 hours`) | ⚡ Advanced |
 | **14** | **Simple Token Staking** | [`Contract 14-StakingContract.sol`](./Contract%2014-StakingContract.sol) | Time-Weighted Yield Calculations, Staking Balances & Rewards | ⚡ Advanced |
 | **15** | **Subscription Payment** | [`Contract 15-SubscriptionPaymentContract.sol`](./Contract%2015-SubscriptionPaymentContract.sol) | Recurring Web3 Payments, Expiry Math, Renewal Logic | ⚡ Advanced |
+| **23** | **Escrow with Dispute** | [`Contract 23-EscrowWithDispute.sol`](./Contract%2023-EscrowWithDispute.sol) | State Machine (`AWAITING_PAYMENT`, `DISPUTED`), Arbiter Dispute Resolution, Refund/Release Flows | ⚡ Advanced |
 
 ---
 
 ## 🧠 Core Concepts Covered
 
 > [!NOTE]
-> Below are the core technical building blocks demonstrated across Contracts 1 through 15:
+> Below are the core technical building blocks demonstrated across the smart contracts:
 
 ### 🛡️ 1. Access Control & Authorization
 - **Custom Modifiers**: Restricting executive operations using custom modifiers (e.g. `onlyOwner`).
@@ -97,6 +98,10 @@ The table below catalogs the initial **15 Smart Contracts** included in this rep
 
 ### 📡 4. EVM Events & Off-Chain Indexing
 - **Indexed Logging**: Emitting EVM events (`Deposit`, `Withdraw`, `MessageLogged`) with `indexed` parameters for seamless integration with off-chain indexers like The Graph.
+
+### ⚖️ 5. State Machines & Multi-Party Arbitration
+- **State Transition Management**: Utilizing explicit `enum` states (`AWAITING_PAYMENT`, `AWAITING_DELIVERY`, `DISPUTED`, `COMPLETE`, `REFUNDED`) to restrict operations and manage contract lifecycle.
+- **Third-Party Dispute Resolution**: Empowering neutral arbiters to settle disputes and decide final funds disbursement between buyer and seller.
 
 ---
 
@@ -119,6 +124,7 @@ The table below catalogs the initial **15 Smart Contracts** included in this rep
 ├── Contract 13-TokenFaucet.sol            # Day 13: Rate-Limited ERC-20 Faucet
 ├── Contract 14-StakingContract.sol        # Day 14: Yield Staking Engine
 ├── Contract 15-SubscriptionPaymentContract.sol # Day 15: Subscription Manager
+├── Contract 23-EscrowWithDispute.sol      # Day 23: Escrow with Dispute Resolution
 ├── LICENSE                                # MIT License
 └── README.md                              # Project Documentation
 ```
@@ -166,7 +172,9 @@ forge build
 - [x] **Day 13**: Token Faucet
 - [x] **Day 14**: Token Staking Contract
 - [x] **Day 15**: Subscription Payment Contract
-- [ ] **Days 16–30**: *In Progress / Coming Soon* 🚀
+- [ ] **Days 16–22**: *In Progress / Coming Soon* 🚀
+- [x] **Day 23**: Escrow with Dispute Resolution
+- [ ] **Days 24–30**: *In Progress / Coming Soon* 🚀
 
 ---
 
