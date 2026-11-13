@@ -4,11 +4,12 @@
 
 ### *Mastering Solidity, EVM Architecture, and Web3 Smart Contract Engineering*
 
-![Solidity](https://img.shields.io/badge/Solidity-%5E0.8.20-363636?style=for-the-badge&logo=solidity&logoColor=white)
+![Solidity](https://img.shields.io/badge/Solidity-%5E0.8.20%20%2F%20%5E0.8.24-363636?style=for-the-badge&logo=solidity&logoColor=white)
 ![EVM](https://img.shields.io/badge/EVM-Compatible-627EEA?style=for-the-badge&logo=ethereum&logoColor=white)
 ![OpenZeppelin](https://img.shields.io/badge/OpenZeppelin-Contracts-4E5EE4?style=for-the-badge&logo=openzeppelin&logoColor=white)
+![Chainlink](https://img.shields.io/badge/Chainlink-Oracles%20%26%20VRF-375BD2?style=for-the-badge&logo=chainlink&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)
-![Status](https://img.shields.io/badge/Progress-16%20%2F%2030%20Days-brightgreen?style=for-the-badge)
+![Status](https://img.shields.io/badge/Progress-18%20%2F%2030%20Days-brightgreen?style=for-the-badge)
 
 <p align="center">
   A hands-on, progressive challenge building production-ready smart contracts from core Solidity fundamentals to advanced DeFi mechanics, tokenomics, access control, and state architecture.
@@ -36,7 +37,7 @@
 
 Welcome to **30 Days of Smart Contracts**! This repository tracks a progressive 30-day journey of mastering **Solidity** and **Web3 protocol development**. 
 
-Every contract is built with precision—starting from fundamental state storage to complex real-world decentralized protocols including **Time-Weighted Token Staking**, **Automated Faucets**, **Escrows**, **Access Controls**, and **Subscription Payment Systems**.
+Every contract is built with precision—starting from fundamental state storage to complex real-world decentralized protocols including **Time-Weighted Token Staking**, **Automated Faucets**, **Escrows**, **Access Controls**, **Subscription Payment Systems**, **Chainlink Price Feeds**, and **Chainlink VRF v2.5 Verifiable Lotteries**.
 
 ---
 
@@ -44,9 +45,10 @@ Every contract is built with precision—starting from fundamental state storage
 
 | Component | Technology | Description |
 | :--- | :--- | :--- |
-| **Language** | **Solidity `^0.8.20`** | Primary smart contract programming language |
+| **Language** | **Solidity `^0.8.20` / `^0.8.24`** | Primary smart contract programming language |
 | **Standard** | **ERC-20** | Standardized fungible token interface |
-| **Security** | **OpenZeppelin Contracts** | Industry-standard secure contract libraries |
+| **Security** | **OpenZeppelin Contracts** | Industry-standard secure contract libraries (`Ownable`, `Pausable`, `ReentrancyGuard`) |
+| **Oracles & VRF** | **Chainlink Contracts** | Decentralized Price Feeds (`AggregatorV3Interface`) & Verifiable Randomness (`VRFConsumerBaseV2Plus`) |
 | **Execution Environment** | **EVM (Ethereum Virtual Machine)** | Ethereum Mainnet, Testnets (Sepolia), L2s (Arbitrum, Optimism, Polygon) |
 | **Dev Tooling** | **Remix IDE / Hardhat / Foundry** | Smart contract compilation, testing, and deployment |
 
@@ -73,6 +75,8 @@ The table below catalogs the smart contracts included in this repository:
 | **13** | **Token Faucet** | [`Contract 13-TokenFaucet.sol`](./Contract%2013-TokenFaucet.sol) | `IERC20` Interface Interactions, Rate-Limiting Cooldowns (`1 hours`) | ⚡ Advanced |
 | **14** | **Simple Token Staking** | [`Contract 14-StakingContract.sol`](./Contract%2014-StakingContract.sol) | Time-Weighted Yield Calculations, Staking Balances & Rewards | ⚡ Advanced |
 | **15** | **Subscription Payment** | [`Contract 15-SubscriptionPaymentContract.sol`](./Contract%2015-SubscriptionPaymentContract.sol) | Recurring Web3 Payments, Expiry Math, Renewal Logic | ⚡ Advanced |
+| **21** | **Price Feed Oracle (Chainlink)** | [`Contract 21 – Price Feed Oracle (Chainlink).sol`](./Contract%2021%20%E2%80%93%20Price%20Feed%20Oracle%20%28Chainlink%29.sol) | Multi-Asset Price Feeds, Decimals Normalization (18 decimals), Heartbeat & Stale Checks, Pausable | ⚡ Advanced |
+| **22** | **Lottery Contract (Randomness)** | [`Contract 22 – Lottery Contract (with randomness).sol`](./Contract%2022%20%E2%80%93%20Lottery%20Contract%20%28with%20randomness%29.sol) | Verifiable Randomness (Chainlink VRF v2.5), Round Lifecycle, Pull-Payment Pattern, Protocol Fees | ⚡ Advanced |
 | **23** | **Escrow with Dispute** | [`Contract 23-EscrowWithDispute.sol`](./Contract%2023-EscrowWithDispute.sol) | State Machine (`AWAITING_PAYMENT`, `DISPUTED`), Arbiter Dispute Resolution, Refund/Release Flows | ⚡ Advanced |
 
 ---
@@ -84,6 +88,7 @@ The table below catalogs the smart contracts included in this repository:
 
 ### 🛡️ 1. Access Control & Authorization
 - **Custom Modifiers**: Restricting executive operations using custom modifiers (e.g. `onlyOwner`).
+- **OpenZeppelin Ownable & Pausable**: Standardized ownership control and emergency circuit-breaker mechanisms (`whenNotPaused`).
 - **Zero-Address Guard**: Protecting smart contracts against unintended ownership transfers to `address(0)`.
 
 ### 💸 2. Native ETH & Token Economics
@@ -97,11 +102,21 @@ The table below catalogs the smart contracts included in this repository:
 - **Cooldown Rate-Limiting**: Enforcing claiming delays in faucets to mitigate abuse.
 
 ### 📡 4. EVM Events & Off-Chain Indexing
-- **Indexed Logging**: Emitting EVM events (`Deposit`, `Withdraw`, `MessageLogged`) with `indexed` parameters for seamless integration with off-chain indexers like The Graph.
+- **Indexed Logging**: Emitting EVM events (`Deposit`, `Withdraw`, `MessageLogged`, `TicketPurchased`, `WinnerSelected`) with `indexed` parameters for seamless integration with off-chain indexers like The Graph.
 
 ### ⚖️ 5. State Machines & Multi-Party Arbitration
 - **State Transition Management**: Utilizing explicit `enum` states (`AWAITING_PAYMENT`, `AWAITING_DELIVERY`, `DISPUTED`, `COMPLETE`, `REFUNDED`) to restrict operations and manage contract lifecycle.
 - **Third-Party Dispute Resolution**: Empowering neutral arbiters to settle disputes and decide final funds disbursement between buyer and seller.
+
+### 🔮 6. Oracles & Decimals Normalization
+- **Chainlink AggregatorV3Interface**: Fetching real-time off-chain price data securely on-chain.
+- **Decimals Normalization**: Scaling non-standard price decimals (e.g., 8-decimal USD pairs) dynamically to standard 18-decimal fixed-point precision.
+- **Staleness & Sanity Validation**: Enforcing maximum data staleness thresholds (`maxPriceAge`) and positive price checks to guard against stale or malicious oracle responses.
+
+### 🎲 7. Verifiable Randomness & Chainlink VRF v2.5
+- **Chainlink VRF v2.5 Consumer**: Requesting and receiving provably fair, cryptographically secure pseudo-random words using `s_vrfCoordinator.requestRandomWords`.
+- **Two-Step Randomness Workflow**: Requesting random words in `requestWinner` and asynchronous callback verification in `fulfillRandomWords`.
+- **Pull Over Push (Withdrawal Pattern)**: Implementing `pendingWithdrawals` with `ReentrancyGuard` to prevent denial-of-service (DoS) during prize distribution and fee transfers.
 
 ---
 
@@ -124,6 +139,8 @@ The table below catalogs the smart contracts included in this repository:
 ├── Contract 13-TokenFaucet.sol            # Day 13: Rate-Limited ERC-20 Faucet
 ├── Contract 14-StakingContract.sol        # Day 14: Yield Staking Engine
 ├── Contract 15-SubscriptionPaymentContract.sol # Day 15: Subscription Manager
+├── Contract 21 – Price Feed Oracle (Chainlink).sol # Day 21: Multi-Asset Oracle & Normalization
+├── Contract 22 – Lottery Contract (with randomness).sol # Day 22: VRF v2.5 Verifiable Lottery
 ├── Contract 23-EscrowWithDispute.sol      # Day 23: Escrow with Dispute Resolution
 ├── LICENSE                                # MIT License
 └── README.md                              # Project Documentation
@@ -136,7 +153,7 @@ The table below catalogs the smart contracts included in this repository:
 ### 1. Using Remix IDE (Recommended)
 1. Open [Remix IDE](https://remix.ethereum.org/).
 2. Create a new file under `contracts/` and copy the desired contract code.
-3. Select compiler version `^0.8.20` in the **Solidity Compiler** tab.
+3. Select compiler version `^0.8.20` or `^0.8.24` in the **Solidity Compiler** tab.
 4. Click **Compile**.
 5. Switch to **Deploy & Run Transactions**, select **Injected Provider (MetaMask)** or **Remix VM**, and click **Deploy**.
 
@@ -144,7 +161,7 @@ The table below catalogs the smart contracts included in this repository:
 
 #### Compile with Hardhat:
 ```bash
-npm install --save-dev hardhat @openzeppelin/contracts
+npm install --save-dev hardhat @openzeppelin/contracts @chainlink/contracts
 npx hardhat compile
 ```
 
@@ -172,7 +189,9 @@ forge build
 - [x] **Day 13**: Token Faucet
 - [x] **Day 14**: Token Staking Contract
 - [x] **Day 15**: Subscription Payment Contract
-- [ ] **Days 16–22**: *In Progress / Coming Soon* 🚀
+- [ ] **Days 16–20**: *In Progress / Coming Soon* 🚀
+- [x] **Day 21**: Price Feed Oracle (Chainlink)
+- [x] **Day 22**: Lottery Contract (with randomness)
 - [x] **Day 23**: Escrow with Dispute Resolution
 - [ ] **Days 24–30**: *In Progress / Coming Soon* 🚀
 
